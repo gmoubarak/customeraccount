@@ -20,5 +20,6 @@ production:
     - curl --location "https://cli.run.pivotal.io/stable?release=linux64-binary&source=github" | tar zx
     - ./cf login -u $CF_USERNAME -p $CF_PASSWORD -a api.run.pivotal.io
     - ./cf push
+    - ./cf logs customeraccount --recent
   only:
     - master
