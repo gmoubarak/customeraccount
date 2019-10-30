@@ -1,5 +1,5 @@
 applications:
   - name: customeraccount
     random-route: true
-    memory: 256M
+    memory: 1024M
     path: target/CustomerAccount-0.0.1-SNAPSHOT.jar
