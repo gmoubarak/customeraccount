@@ -27,6 +27,11 @@ public class CustomerRestV1Controller {
         return customerService.getCustomers();
     }
 
+    @RequestMapping(value="/@count",method = RequestMethod.GET)
+    public int getCustomersCount(){
+        return customerService.getCustomers().size();
+    }
+
     @RequestMapping(value="/{customerID}",method = RequestMethod.GET)
     public Customer get(@PathVariable String customerID){
         return customerService.get(customerID);

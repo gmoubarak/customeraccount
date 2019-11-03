@@ -45,9 +45,6 @@
     <orderEntry type="library" name="Maven: org.apache.tomcat.embed:tomcat-embed-core:9.0.27" level="project" />
     <orderEntry type="library" name="Maven: org.apache.tomcat.embed:tomcat-embed-el:9.0.27" level="project" />
     <orderEntry type="library" name="Maven: org.apache.tomcat.embed:tomcat-embed-websocket:9.0.27" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.tomcat.embed:tomcat-embed-jasper:9.0.27" level="project" />
-    <orderEntry type="library" name="Maven: org.eclipse.jdt:ecj:3.18.0" level="project" />
-    <orderEntry type="library" name="Maven: javax.servlet:jstl:1.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework.boot:spring-boot-starter-test:2.2.0.RELEASE" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework.boot:spring-boot-test:2.2.0.RELEASE" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework.boot:spring-boot-test-autoconfigure:2.2.0.RELEASE" level="project" />
@@ -79,5 +76,11 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-jcl:5.2.0.RELEASE" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework:spring-test:5.2.0.RELEASE" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.xmlunit:xmlunit-core:2.6.3" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-thymeleaf:2.2.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.thymeleaf:thymeleaf-spring5:3.0.11.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.thymeleaf:thymeleaf:3.0.11.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.attoparser:attoparser:2.0.5.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.unbescape:unbescape:1.1.6.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.thymeleaf.extras:thymeleaf-extras-java8time:3.0.4.RELEASE" level="project" />
   </component>
 </module>
