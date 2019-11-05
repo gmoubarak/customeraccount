@@ -31,21 +31,12 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 </head>
 <body>
-<div th:fragment="header">
-    <!-- this is header -->
-    <nav class="navbar navbar-inverse">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" th:href="@{/}">Spring Boot</a>
-            </div>
-            <div id="navbar" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a th:href="@{/}">Home</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</div>
+<!-- Page Header-->
+<header class="page-header" th:fragment="header (title,backlink,classname)">
+    <div class="container-fluid">
+        <h2 class="no-margin-bottom"><a href="/" th:if="${backlink != null}">Home -> </a><span th:classappend="${classname}" th:text="${title}"></span></h2>
+    </div>
+</header>
 <!-- Page Footer-->
 <footer class="main-footer" th:fragment="footer">
     <div class="container-fluid">
