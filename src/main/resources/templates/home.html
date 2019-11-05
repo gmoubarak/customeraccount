@@ -1,37 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <div th:fragment="header-css">
-        <title>Customer Account</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-        <!-- this is header-css -->
-
-        <!-- Bootstrap CSS-->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
-        <!-- jQuery library -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-        <!-- Bootstrap JS-->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-
-        <!-- Google Font-->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
-
-        <!-- Font Awesome CSS-->
-        <link rel="stylesheet" type="text/css"
-              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" type="text/css"
-              href="../../css/fontastic.css" />
-
-        <link rel="stylesheet" type="text/css"
-              href="../../css/style.default.css" />
-
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
-    </div>
+<head th:replace="fragment/common.html :: head">
 </head>
 <body>
 <script src="../../js/home.js">
@@ -114,16 +83,7 @@
                     </div>
                 </div>
             </section>
-            <!-- Page Footer-->
-            <footer class="main-footer">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <p>Customer Account Exercise</p>
-                        </div>
-                    </div>
-                </div>
-            </footer>
+            <div th:replace="fragment/common.html :: footer">/>
         </div>
     </div>
 </div>

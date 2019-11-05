@@ -1,4 +1,4 @@
-package exercise.customeraccount.cutomer;
+package exercise.customeraccount.customer;
 
 import exercise.customeraccount.customer.model.Customer;
 import exercise.customeraccount.customer.service.CustomerService;
