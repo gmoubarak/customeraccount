@@ -32,9 +32,9 @@
 </head>
 <body>
 <!-- Page Header-->
-<header class="page-header" th:fragment="header (title,backlink,classname)">
+<header class="page-header" th:fragment="header (title,parentLink,parentTitle,classname)">
     <div class="container-fluid">
-        <h2 class="no-margin-bottom"><a href="/" th:if="${backlink != null}">Home -> </a><span th:classappend="${classname}" th:text="${title}"></span></h2>
+        <h2 class="no-margin-bottom"><span th:if="${parentLink != null}"><a th:href="@{${parentLink}}"><span th:text="${parentTitle}"> </span></a><span> / </span></span><span th:classappend="${classname}" th:text="${title}"></span></h2>
     </div>
 </header>
 <!-- Page Footer-->

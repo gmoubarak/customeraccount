@@ -9,7 +9,7 @@
     <!-- Main Navbar-->
     <div class="page-content d-flex align-items-stretch">
         <div class="content-inner">
-            <div th:replace="fragment/common.html :: header( title='Customers',backlink=null,classname='text-blue')"></div>
+            <div th:replace="fragment/common.html :: header( title='Customers',parentLink=null,parentTitle=null,classname='text-blue')"></div>
             <section class="dashboard-counts no-padding-bottom">
                 <div class="container-fluid">
                     <div class="row bg-white has-shadow">
@@ -25,10 +25,10 @@
                         <!-- Item -->
                         <div class="col-xl-4 col-sm-6">
                             <div class="item d-flex align-items-center">
-                                <div class="icon bg-red"><i class="fa fa-euro"></i></i></div>
+                                <div class="icon bg-red"><i class="fa fa-euro"></i></div>
                                 <div class="title"><span>Accounts</span>
                                 </div>
-                                <div class="number"><strong></strong></div>
+                                <div class="number"><strong id="accountCount"></strong></div>
                             </div>
                         </div>
                         <!-- Item -->
@@ -63,11 +63,19 @@
                                             </tr>
                                             </thead>
 
-                                            <tbody th:with="counter=${0}">
+                                            <tbody>
                                             <tr th:each="cust,iStat: ${customers}">
                                                 <th scope="row" > <span th:text="${iStat.count}"></span></th>
-                                                <td > <span th:text="${cust.name}"></span></td>
-                                                <td > <span th:text="${cust.surname}"></span></td>
+                                                <td>
+                                                    <a th:href="@{'/accounts/'+${cust.customerID}}">
+                                                        <span th:text="${cust.name}"></span>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a th:href="@{'/accounts/'+${cust.customerID}}">
+                                                        <span th:text="${cust.surname}"></span>
+                                                    </a>
+                                                </td>
                                             </tr>
                                             </tbody>
                                         </table>

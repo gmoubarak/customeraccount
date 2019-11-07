@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragment/common.html :: head">
+</head>
+<body>
+<script src="../../js/common.js"></script>
+<script src="../../js/accounts.js"></script>
+<div class="page">
+    <!-- Main -->
+    <div class="page-content d-flex align-items-stretch">
+        <div class="content-inner">
+            <div th:replace="fragment/common.html :: header( title='Accounts',parentLink='/',parentTitle='Customers',classname='text-blue')"></div>
+            <section class="dashboard-counts no-padding-bottom">
+                <div class="container-fluid">
+                    <div class="row bg-white has-shadow">
+                        <!-- Item -->
+                        <div class="col-xl-4 col-sm-6">
+                            <div class="item d-flex align-items-center">
+                                <div class="icon bg-blue"><i class="fa fa-user"></i></div>
+                                <div class="title">
+                                    <h2><span th:text="${name}"></span></h2>
+                                    <h1><span th:text="${surname}"></span></h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="tables">
+                <div class="container-fluid">
+                    <div class="row">
+                       <div class="col-xl-12">
+                        <div class="card">
+                                <div class="card-header d-flex align-items-center">
+                                    <h3 class="h4">Accounts</h3>
+                                    <div class="col">
+                                    <button type="button" class="btn btn-circle btn-success btn-sm" data-toggle="modal" data-target="#addAccountDialog" >
+                                    <i class="fa fa-plus" id="showAddAccount"></i></button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped" id="accountsTable">
+                                            <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Account</th>
+                                                <th>Description</th>
+                                                <th>Amount</th>
+                                                <th></th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            <tr th:each="acc,iStat: ${accounts}">
+                                                <th scope="row" > <span th:text="${iStat.count}"></span></th>
+                                                <td > <span th:text="${acc.accountID}"></span></td>
+                                                <td > <span th:text="${acc.description}"></span></td>
+                                                <td ><span >0</span><i class="fa fa-euro"></i></td>
+                                                <td >
+                                                    <button type="button" class="btn btn-circle btn-danger btn-sm" th:attr="onclick=${'deleteAccount('''+acc.accountID+''')'}">
+                                                        <i class="fa fa-close"></i></button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <span id="customerID" class="invisible" th:text="${customerID}"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div th:replace="fragment/common.html :: footer">/>
+        </div>
+    </div>
+</div>
+<!-- Add Account Modal -->
+<div class="modal fade" id="addAccountDialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add Account</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row bg-white">
+                        <div class="md-form">
+                            <div class="row">
+                                <span>Description:</span> <input type="text" class="form-control" aria-label="description" aria-describedby="basic-addon1" id="descriptionInput"/>
+                            </div>
+                            <div class="row">
+                                <span>Initial value:</span><input type="text" class="form-control" aria-label="initialValue" aria-describedby="basic-addon1" id="initialValueInput"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="addAccount">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
