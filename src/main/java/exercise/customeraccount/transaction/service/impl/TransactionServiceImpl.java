@@ -1,5 +1,6 @@
 package exercise.customeraccount.transaction.service.impl;
 
+import exercise.customeraccount.account.service.AccountService;
 import exercise.customeraccount.transaction.model.Transaction;
 import exercise.customeraccount.transaction.repository.TransactionRepository;
 import exercise.customeraccount.transaction.service.TransactionService;
@@ -18,6 +19,8 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Autowired
     private TransactionRepository transactionRepository;
+    @Autowired
+    private AccountService accountService;
 
 
     @Override
@@ -48,7 +51,8 @@ public class TransactionServiceImpl implements TransactionService {
         t.setAccountID(accountID);
         t.setAmount(amount);
         t.setDescription(description);
-        return transactionRepository.save(t);
+        t= transactionRepository.save(t);
+        return t;
     }
 
     @Override

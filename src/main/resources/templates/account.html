@@ -9,7 +9,7 @@
     <!-- Main -->
     <div class="page-content d-flex align-items-stretch">
         <div class="content-inner">
-            <div th:replace="fragment/common.html :: header( title='Account Info',parentLink='${backlink}',parentTitle='Accounts',classname='text-red')"></div>
+            <div th:replace="fragment/common.html :: header( title='Account Info',parentLink=${backlink},parentTitle='Accounts',classname='text-red')"></div>
             <section class="dashboard-counts no-padding-bottom">
                 <div class="container-fluid">
                     <div class="row bg-white has-shadow">
@@ -30,7 +30,7 @@
                                     <h2><span th:text="${accountID}"></span></h2>
                                     <h1><span th:text="${accountDescription}"></span></h1>
                                 </div>
-                                <div class="number"><strong id="accountSum"></strong></div>
+                                <div class="number"><strong id="accountBalance"><i class="fa fa-euro"></i></strong></div>
                             </div>
                         </div>
                     </div>
