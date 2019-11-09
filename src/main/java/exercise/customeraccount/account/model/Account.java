@@ -5,6 +5,15 @@ public class Account {
     private String accountID;
     private String customerID;
     private String description;
+    private double balance;
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
 
     public String getAccountID() {
         return accountID;

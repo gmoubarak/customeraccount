@@ -1,6 +1,7 @@
 package exercise.customeraccount.repository.inmemory;
 
 import exercise.customeraccount.repository.DefaultRepository;
+import exercise.customeraccount.repository.RepositoryException;
 
 import java.util.*;
 import java.util.function.Supplier;
@@ -17,29 +18,29 @@ abstract public class InMemoryRepository<T,ID> implements DefaultRepository<T,ID
         datastore=new HashMap<ID,T>();
     }
     //Provides an ID generator for the Entity.
-    abstract protected Supplier<ID> getSupplier();
+    abstract protected Supplier<ID> getSupplier() throws RepositoryException;
 
     //retrieves the ID from entity T
-    abstract protected ID getID(T t);
+    abstract protected ID getID(T t) throws RepositoryException;
 
     //sets the ID in  entity T
-    abstract protected void setID(T t,ID id);
+    abstract protected void setID(T t,ID id) throws RepositoryException;
 
     //Checks if Entity satisfies criteria
-    abstract protected boolean filter(T t,Map<String, Object> criteria);
+    abstract protected boolean filter(T t,Map<String, Object> criteria) throws RepositoryException;
 
     @Override
-    public List<T> getAll() {
+    public List<T> getAll() throws RepositoryException {
         return new ArrayList<T>(datastore.values());
     }
 
     @Override
-    public T getByID(ID id) {
+    public T getByID(ID id) throws RepositoryException {
         return datastore.get(id);
     }
 
     @Override
-    public T save(T t) {
+    public T save(T t)  throws RepositoryException{
         if(getID(t)==null){
             ID id=getSupplier().get();
             setID(t, id);
@@ -49,18 +50,18 @@ abstract public class InMemoryRepository<T,ID> implements DefaultRepository<T,ID
     }
 
     @Override
-    public boolean delete(T t) {
+    public boolean delete(T t)  throws RepositoryException{
         ID id=getID(t);
         return deleteByID(id);
     }
     @Override
-    public boolean deleteByID(ID id){
+    public boolean deleteByID(ID id) throws RepositoryException{
         if(id==null)return false;
         return datastore.remove(id)!=null;
     }
 
     @Override
-    public List<T> select(Map<String, Object> criteria) {
+    public List<T> select(Map<String, Object> criteria)  throws RepositoryException{
         ArrayList result=null;
         List<T> list=getAll();
         Iterator<T> it=list.iterator();
@@ -76,12 +77,12 @@ abstract public class InMemoryRepository<T,ID> implements DefaultRepository<T,ID
     }
     //returns the count of all entities
     @Override
-    public int count(){
+    public int count()  throws RepositoryException{
         return getAll().size();
     }
     //returns the count of the entities satisfying criteria.
     @Override
-    public int count(Map<String,Object>criteria){
+    public int count(Map<String,Object>criteria) throws RepositoryException{
         List l=select(criteria);
         if(l==null)return 0;
         return l.size();
