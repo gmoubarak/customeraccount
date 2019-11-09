@@ -15,7 +15,9 @@ public class AccountRestV1Controller {
     @Autowired
     private AccountService accountService;
 
-    //returns the count of all the accounts
+    /*
+    * @return the count of all the accounts
+     */
     @RequestMapping(value="/@count",method = RequestMethod.GET)
     public int getAccountsCount(){
         try{
@@ -26,7 +28,13 @@ public class AccountRestV1Controller {
         }
     }
 
-    //creates a new account for a customer
+    /*
+    * creates a new account for a customer
+     * @param customerID the customer id to whom the account belongs
+     * @param description is the account description.
+     * @param initialValue if not 0 a transaction is automatically created for that newly created account as initial transaction
+     * @return the created account.
+     */
     @RequestMapping(value="",method = RequestMethod.POST)
     public Account createAccount(@RequestParam String customerID, @RequestParam String description, @RequestParam Double initialValue){
         try{
@@ -37,7 +45,11 @@ public class AccountRestV1Controller {
         }
     }
 
-    //deletes an account by id
+    /*
+    * deletes an account by id
+    * @param accountID id of the account to be deleted
+    * @return true if account is deleted successfully. false otherwise.
+     */
     @RequestMapping(value="",method = RequestMethod.DELETE)
     public boolean deleteAccount(@RequestParam String accountID){
         try{

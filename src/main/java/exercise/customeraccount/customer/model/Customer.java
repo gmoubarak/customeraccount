@@ -1,8 +1,13 @@
 package exercise.customeraccount.customer.model;
-
+/*
+Customer Entity
+ */
 public class Customer {
+    //Customer ID
     private String customerID;
+    //Customer's name
     private String name;
+    //Customer's surname.
     private String surname;
 
     public String getCustomerID() {
