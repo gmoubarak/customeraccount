@@ -22,17 +22,20 @@ public class AccountRepositoryInMem extends InMemoryRepository<Account,String> i
         return supplier;
     }
 
-    //retrieves the ID from entity T
+    //retrieves the ID from entity T.
+    //No Need to Throw Exception since it's all in memory
     public String getID(Account account){
         return account.getAccountID();
     }
 
     //sets the ID in  entity T
+    //No Need to Throw Exception since it's all in memory
     public void setID(Account account,String id){
         account.setAccountID(id);
     }
 
     //Checks if Entity satisfies criteria
+    //No Need to Throw Exception since it's all in memory
     public boolean filter(Account account, Map<String, Object> criteria){
         Object customerID=criteria.get("customerID");
         return customerID!=null && account.getCustomerID().equals(customerID);
