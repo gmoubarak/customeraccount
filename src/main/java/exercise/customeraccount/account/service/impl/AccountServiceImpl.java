@@ -5,6 +5,8 @@ import exercise.customeraccount.account.repository.AccountRepository;
 import exercise.customeraccount.account.service.AccountService;
 import exercise.customeraccount.account.service.AccountServiceException;
 import exercise.customeraccount.repository.RepositoryException;
+import exercise.customeraccount.transaction.service.TransactionService;
+import exercise.customeraccount.transaction.service.TransactionServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,8 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private AccountRepository accountRepository;
+    @Autowired
+    private TransactionService transactionService;
 
     //returns an account by its ID.
     @Override
@@ -70,10 +74,15 @@ public class AccountServiceImpl implements AccountService {
         ac.setCustomerID(customerID);
         ac.setDescription(description);
         try{
-            return accountRepository.save(ac);
+            ac= accountRepository.save(ac);
+            if(initialValue!=0)
+                transactionService.createTransaction(ac.getAccountID(),"Initial Transaction",initialValue);
         }catch(RepositoryException e){
             throw new AccountServiceException(e.getMessage());
+        }catch(TransactionServiceException te){
+            throw new AccountServiceException(te.getMessage());
         }
+        return ac;
     }
 
     @Override

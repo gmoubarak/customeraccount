@@ -1,6 +1,8 @@
 package exercise.customeraccount.transaction.service.impl;
 
+import exercise.customeraccount.account.model.Account;
 import exercise.customeraccount.account.service.AccountService;
+import exercise.customeraccount.account.service.AccountServiceException;
 import exercise.customeraccount.repository.RepositoryException;
 import exercise.customeraccount.transaction.model.Transaction;
 import exercise.customeraccount.transaction.repository.TransactionRepository;
@@ -20,9 +22,9 @@ Transaction Service Implementation
 public class TransactionServiceImpl implements TransactionService {
 
     @Autowired
-    private TransactionRepository transactionRepository;
-    @Autowired
     private AccountService accountService;
+    @Autowired
+    private TransactionRepository transactionRepository;
 
 
     @Override
@@ -61,37 +63,38 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public Transaction createTransaction(String accountID, String description, double amount)  throws TransactionServiceException{
+        if(amount==0){
+            return null;
+        }
         Transaction t=new Transaction();
         t.setAccountID(accountID);
         t.setAmount(amount);
         t.setDescription(description);
         try{
             t= transactionRepository.save(t);
+            Account ac=accountService.getAccount(accountID);
+            accountService.setAccountBalance(accountID,ac.getBalance()+amount);
         }catch(RepositoryException e){
             throw new TransactionServiceException(e.getMessage());
+        }catch(AccountServiceException ae){
+            throw new TransactionServiceException(ae.getMessage());
         }
         return t;
     }
 
     @Override
-    public boolean deleteTransaction(String accountID)  throws TransactionServiceException{
+    public boolean deleteTransaction(String transactionID)  throws TransactionServiceException{
         try{
-            return transactionRepository.deleteByID(accountID);
+            Transaction t= transactionRepository.getByID(transactionID);
+            boolean result= transactionRepository.delete(t);
+            if(!result)return false;
+            Account ac=accountService.getAccount(t.getAccountID());
+            accountService.setAccountBalance(t.getAccountID(),ac.getBalance()+t.getAmount());
         }catch(RepositoryException e){
             throw new TransactionServiceException(e.getMessage());
+        }catch(AccountServiceException ae){
+            throw new TransactionServiceException(ae.getMessage());
         }
+        return true;
     }
-
-    @Override
-    public double getBalanceForAccount(String accountID) throws TransactionServiceException{
-        List<Transaction>ts=getTransactionsForAccount(accountID);
-        Iterator<Transaction>it=ts.iterator();
-        double sum=0;
-        while(it.hasNext()){
-            Transaction t=it.next();
-            sum+=t.getAmount();
-        }
-        return sum;
-    }
-
 }
