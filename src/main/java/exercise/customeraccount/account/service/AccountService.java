@@ -8,6 +8,8 @@ import java.util.List;
 Account Service Interface to be called by Account REST controller
  */
 public interface AccountService {
+    //returns account by id.
+    Account getAccount(String accountID);
     //returns the count of all the accounts
     int getAccountsCount();
     //returns the count of all the accounts

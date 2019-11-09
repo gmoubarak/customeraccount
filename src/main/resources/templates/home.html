@@ -67,12 +67,12 @@
                                             <tr th:each="cust,iStat: ${customers}">
                                                 <th scope="row" > <span th:text="${iStat.count}"></span></th>
                                                 <td>
-                                                    <a th:href="@{'/accounts/'+${cust.customerID}}">
+                                                    <a th:href="@{'/customer/'+${cust.customerID}}">
                                                         <span th:text="${cust.name}"></span>
                                                     </a>
                                                 </td>
                                                 <td>
-                                                    <a th:href="@{'/accounts/'+${cust.customerID}}">
+                                                    <a th:href="@{'/customer/'+${cust.customerID}}">
                                                         <span th:text="${cust.surname}"></span>
                                                     </a>
                                                 </td>

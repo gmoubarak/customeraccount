@@ -19,6 +19,9 @@ public class AccountServiceImpl implements AccountService {
     private AccountRepository accountRepository;
 
 
+    public Account getAccount(String accountID){
+        return accountRepository.getByID(accountID);
+    }
     //returns the count of all the accounts
     @Override
     public int getAccountsCount(){
