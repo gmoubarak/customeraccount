@@ -17,6 +17,7 @@ public interface TransactionService {
     //creates a transaction for a specific account.
     Transaction createTransaction(String accountID,String description, double amount);
     //deletes a transaction.
-    boolean deleteTransaction(String accountID);
-
+    boolean deleteTransaction(String transactionID);
+    //returns balance for an account by returing the sum of all its transactions' amounts
+    double getBalanceForAccount(String accountID);
 }

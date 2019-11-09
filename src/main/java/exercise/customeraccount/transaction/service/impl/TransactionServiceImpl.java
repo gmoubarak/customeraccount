@@ -4,13 +4,16 @@ import exercise.customeraccount.transaction.model.Transaction;
 import exercise.customeraccount.transaction.repository.TransactionRepository;
 import exercise.customeraccount.transaction.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 /*
 Transaction Service Implementation
  */
+@Service
 public class TransactionServiceImpl implements TransactionService {
 
     @Autowired
@@ -52,4 +55,17 @@ public class TransactionServiceImpl implements TransactionService {
     public boolean deleteTransaction(String accountID) {
         return transactionRepository.deleteByID(accountID);
     }
+
+    @Override
+    public double getBalanceForAccount(String accountID){
+        List<Transaction>ts=getTransactionsForAccount(accountID);
+        Iterator<Transaction>it=ts.iterator();
+        double sum=0;
+        while(it.hasNext()){
+            Transaction t=it.next();
+            sum+=t.getAmount();
+        }
+        return sum;
+    }
+
 }

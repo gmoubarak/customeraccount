@@ -4,12 +4,12 @@
 </head>
 <body>
 <script src="../../js/common.js"></script>
-<script src="../../js/customer.js"></script>
+<script src="../../js/account.js"></script>
 <div class="page">
     <!-- Main -->
     <div class="page-content d-flex align-items-stretch">
         <div class="content-inner">
-            <div th:replace="fragment/common.html :: header( title='Customer Info',parentLink='/',parentTitle='Customers',classname='text-blue')"></div>
+            <div th:replace="fragment/common.html :: header( title='Account Info',parentLink='${backlink}',parentTitle='Accounts',classname='text-red')"></div>
             <section class="dashboard-counts no-padding-bottom">
                 <div class="container-fluid">
                     <div class="row bg-white has-shadow">
@@ -23,6 +23,16 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-xl-4 col-sm-6">
+                            <div class="item d-flex align-items-center">
+                                <div class="icon bg-red"><i class="fa fa-euro"></i></div>
+                                <div class="title">
+                                    <h2><span th:text="${accountID}"></span></h2>
+                                    <h1><span th:text="${accountDescription}"></span></h1>
+                                </div>
+                                <div class="number"><strong id="accountSum"></strong></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -32,19 +42,19 @@
                        <div class="col-xl-12">
                         <div class="card">
                                 <div class="card-header d-flex align-items-center">
-                                    <h3 class="h4">Accounts</h3>
+                                    <h3 class="h4">Transactions</h3>
                                     <div class="col">
-                                    <button type="button" class="btn btn-circle btn-success btn-sm" data-toggle="modal" data-target="#addAccountDialog" >
-                                    <i class="fa fa-plus" id="showAddAccount"></i></button>
+                                    <button type="button" class="btn btn-circle btn-success btn-sm" data-toggle="modal" data-target="#addTransactionDialog" >
+                                    <i class="fa fa-plus" id="showAddTransaction"></i></button>
                                     </div>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table table-striped" id="accountsTable">
+                                        <table class="table table-striped" id="transactionsTable">
                                             <thead>
                                             <tr>
                                                 <th>#</th>
-                                                <th>Account</th>
+                                                <th>Transaction</th>
                                                 <th>Description</th>
                                                 <th>Amount</th>
                                                 <th></th>
@@ -52,27 +62,19 @@
                                             </thead>
 
                                             <tbody>
-                                            <tr th:each="acc,iStat: ${accounts}">
+                                            <tr th:each="tra,iStat: ${transactions}">
                                                 <th scope="row" > <span th:text="${iStat.count}"></span></th>
+                                                <td > <span th:text="${tra.transactionID}"></span></td>
+                                                <td > <span th:text="${tra.description}"></span></td>
+                                                <td > <span th:text="${tra.amount}"></span><i class="fa fa-euro"></i></td>
                                                 <td >
-                                                    <a th:href="@{'/account/'+${acc.accountID}}">
-                                                        <span th:text="${acc.accountID}"></span>
-                                                    </a>
-                                                </td>
-                                                <td >
-                                                    <a th:href="@{'/account/'+${acc.accountID}}">
-                                                        <span th:text="${acc.description}"></span>
-                                                    </a>
-                                                </td>
-                                                <td ><span >0</span><i class="fa fa-euro"></i></td>
-                                                <td >
-                                                    <button type="button" class="btn btn-circle btn-danger btn-sm" th:attr="onclick=${'deleteAccount('''+acc.accountID+''')'}">
+                                                    <button type="button" class="btn btn-circle btn-danger btn-sm" th:attr="onclick=${'deleteTransaction('''+tra.transactionID+''')'}">
                                                         <i class="fa fa-close"></i></button>
                                                 </td>
                                             </tr>
                                             </tbody>
                                         </table>
-                                        <span id="customerID" class="invisible" th:text="${customerID}"></span>
+                                        <span id="accountID" class="invisible" th:text="${accountID}"></span>
                                     </div>
                                 </div>
                             </div>
@@ -84,12 +86,12 @@
         </div>
     </div>
 </div>
-<!-- Add Account Modal -->
-<div class="modal fade" id="addAccountDialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<!-- Add Transaction Modal -->
+<div class="modal fade" id="addTransactionDialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Add Account</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">New Transaction</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -102,7 +104,7 @@
                                 <span>Description:</span> <input type="text" class="form-control" aria-label="description" aria-describedby="basic-addon1" id="descriptionInput"/>
                             </div>
                             <div class="row">
-                                <span>Initial value:</span><input type="text" class="form-control" aria-label="initialValue" aria-describedby="basic-addon1" id="initialValueInput"/>
+                                <span>Amount:</span><input type="text" class="form-control" aria-label="amount" aria-describedby="basic-addon1" id="amountInput"/>
                             </div>
                         </div>
                     </div>
@@ -110,7 +112,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="addAccount">Add</button>
+                <button type="button" class="btn btn-primary" id="createTransaction">Create</button>
             </div>
         </div>
     </div>

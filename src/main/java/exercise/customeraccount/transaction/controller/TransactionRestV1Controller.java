@@ -23,7 +23,7 @@ public class TransactionRestV1Controller {
 
     //creates a new transaction for an account
     @RequestMapping(value="",method = RequestMethod.POST)
-    public Transaction createAccount(@RequestParam String accountID, @RequestParam String description, @RequestParam Double amount){
+    public Transaction createTransaction(@RequestParam String accountID, @RequestParam String description, @RequestParam Double amount){
         return transactionService.createTransaction(accountID,description,amount);
     }
 
