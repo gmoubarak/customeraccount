@@ -2,7 +2,7 @@ package exercise.customeraccount.account.controller;
 
 import exercise.customeraccount.account.model.Account;
 import exercise.customeraccount.account.service.AccountService;
-import exercise.customeraccount.transaction.service.TransactionService;
+//import exercise.customeraccount.transaction.service.TransactionService;
 import exercise.customeraccount.account.service.AccountServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,8 +15,8 @@ public class AccountRestV1Controller {
 
     @Autowired
     private AccountService accountService;
-    @Autowired
-    private TransactionService transactionService;
+//    @Autowired
+//    private TransactionService transactionService;
 
     //returns the count of all the accounts
     @RequestMapping(value="/@count",method = RequestMethod.GET)
@@ -50,10 +50,10 @@ public class AccountRestV1Controller {
                     HttpStatus.NOT_FOUND, "Account couldn't be deleted ",e);
         }
     }
-
-    //retuns the sum of transactions amount of an account
-    @RequestMapping(value="/{accountID}/@balance",method = RequestMethod.GET)
-    public double getAmountForAccount(@PathVariable String accountID){
-        return transactionService.getBalanceForAccount(accountID);
-    }
+//
+//    //retuns the sum of transactions amount of an account
+//    @RequestMapping(value="/{accountID}/@balance",method = RequestMethod.GET)
+//    public double getAmountForAccount(@PathVariable String accountID){
+//        return transactionService.getBalanceForAccount(accountID);
+//    }
 }
