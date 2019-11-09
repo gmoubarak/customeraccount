@@ -23,9 +23,8 @@ public class DefaultController {
         model.addAttribute("customers",customerService.getCustomers());
         return "/home";
     }
-    @GetMapping(value="/accounts/{customerID}")
-    public String accountsPage(Model model, @PathVariable String customerID){
-        model.addAttribute("pageName","accounts");
+    @GetMapping(value="/customer/{customerID}")
+    public String customerPage(Model model, @PathVariable String customerID){
         Customer c=customerService.get(customerID);
         if(c!=null) {
             model.addAttribute("name", c.getName());
@@ -33,18 +32,14 @@ public class DefaultController {
             model.addAttribute("customerID", customerID);
             model.addAttribute("accounts",accountService.getAccountsForCustomer(c.getCustomerID()));
         }
-        return "/accounts";
+        return "/customer";
     }
-    @GetMapping(value="/accounts/{customerID}/reloadAccounts")
+    @GetMapping(value="/customer/{customerID}/reloadAccounts")
     public String reloadAccountsList(Model model, @PathVariable String customerID){
-        model.addAttribute("pageName","accounts");
         Customer c=customerService.get(customerID);
         if(c!=null) {
-            model.addAttribute("name", c.getName());
-            model.addAttribute("surname", c.getSurname());
-            model.addAttribute("customerID", customerID);
             model.addAttribute("accounts",accountService.getAccountsForCustomer(c.getCustomerID()));
         }
-        return "/accounts :: #accountsTable";
+        return "/customer :: #accountsTable";
     }
 }

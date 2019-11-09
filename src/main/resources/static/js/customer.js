@@ -20,7 +20,7 @@ $(document).ready(function() {
 // ajax call for reloading the accounts list table
 function reloadAccounts(){
      var customerID=$('#customerID').text();
-    $.get("/accounts/"+customerID+"/reloadAccounts", function(fragment) {
+    $.get("/customer/"+customerID+"/reloadAccounts", function(fragment) {
         $("#accountsTable").replaceWith(fragment);
     });
 }
