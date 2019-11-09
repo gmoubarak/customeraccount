@@ -84,4 +84,14 @@ public class AccountServiceImpl implements AccountService {
             throw new AccountServiceException(e.getMessage());
         }
     }
+    @Override
+    public void setAccountBalance(String accountID,double newBalance)throws AccountServiceException{
+        Account ac=getAccount(accountID);
+        ac.setBalance(newBalance);
+        try{
+            accountRepository.save(ac);
+        }catch(RepositoryException e){
+            throw new AccountServiceException(e.getMessage());
+        }
+    }
 }

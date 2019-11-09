@@ -1,10 +1,16 @@
 package exercise.customeraccount.account.model;
-
+/*
+Account Entity
+ */
 public class Account {
 
+    //Account id
     private String accountID;
+    //Customer ID
     private String customerID;
+    //Account description
     private String description;
+    //Account balance.
     private double balance;
 
     public double getBalance() {
