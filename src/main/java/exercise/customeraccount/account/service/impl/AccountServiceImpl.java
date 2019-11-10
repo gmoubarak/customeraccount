@@ -5,11 +5,17 @@ import exercise.customeraccount.account.repository.AccountRepository;
 import exercise.customeraccount.account.service.AccountService;
 import exercise.customeraccount.account.service.AccountServiceException;
 import exercise.customeraccount.repository.RepositoryException;
+import exercise.customeraccount.transaction.model.Transaction;
 import exercise.customeraccount.transaction.service.TransactionService;
 import exercise.customeraccount.transaction.service.TransactionServiceException;
+import exercise.customeraccount.transaction.service.impl.TransactionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -62,9 +68,20 @@ public class AccountServiceImpl implements AccountService {
     public List<Account> getAccountsForCustomer(String customerID)  throws AccountServiceException{
         HashMap<String,Object> cr=createCriteria(customerID);
         try{
-            return accountRepository.select(cr);
+            List<Account>list=accountRepository.select(cr);
+            if(list==null)return null;
+            Collections.sort(list,comp);
+            return list;
         }catch(RepositoryException e){
             throw new AccountServiceException(e.getMessage());
+        }
+    }
+    private TimestampComparator comp=new TimestampComparator();
+    class TimestampComparator implements Comparator<Account> {
+
+        @Override
+        public int compare(Account o1, Account o2) {
+            return Long.compare(o1.getCreatedTimestamp().getTime(),o2.getCreatedTimestamp().getTime());
         }
     }
 
@@ -73,6 +90,7 @@ public class AccountServiceImpl implements AccountService {
         Account ac=new Account();
         ac.setCustomerID(customerID);
         ac.setDescription(description);
+        ac.setCreatedTimestamp(Timestamp.from(Instant.now()));
         try{
             ac= accountRepository.save(ac);
             if(initialValue!=0)

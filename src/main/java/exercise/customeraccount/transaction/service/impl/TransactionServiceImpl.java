@@ -11,9 +11,9 @@ import exercise.customeraccount.transaction.service.TransactionServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.*;
 
 /*
 Transaction Service Implementation
@@ -55,12 +55,22 @@ public class TransactionServiceImpl implements TransactionService {
     public List<Transaction> getTransactionsForAccount(String accountID)  throws TransactionServiceException{
         HashMap<String,Object> cr=createCriteria(accountID);
         try{
-            return transactionRepository.select(cr);
+            List<Transaction>list= transactionRepository.select(cr);
+            if(list==null)return null;
+            Collections.sort(list,comp);
+            return list;
         }catch(RepositoryException e){
             throw new TransactionServiceException(e.getMessage());
         }
     }
+    private TimestampComparator comp=new TimestampComparator();
+    class TimestampComparator implements Comparator<Transaction> {
 
+        @Override
+        public int compare(Transaction o1, Transaction o2) {
+            return Long.compare(o1.getCreatedTimestamp().getTime(),o2.getCreatedTimestamp().getTime());
+        }
+    }
     @Override
     public Transaction createTransaction(String accountID, String description, double amount)  throws TransactionServiceException{
         if(amount==0){
@@ -70,6 +80,7 @@ public class TransactionServiceImpl implements TransactionService {
         t.setAccountID(accountID);
         t.setAmount(amount);
         t.setDescription(description);
+        t.setCreatedTimestamp(Timestamp.from(Instant.now()));
         try{
             t= transactionRepository.save(t);
             Account ac=accountService.getAccount(accountID);

@@ -57,6 +57,7 @@
                                                 <th>Transaction</th>
                                                 <th>Description</th>
                                                 <th>Amount</th>
+                                                <th>Time</th>
                                                 <th></th>
                                             </tr>
                                             </thead>
@@ -67,6 +68,7 @@
                                                 <td > <span th:text="${tra.transactionID}"></span></td>
                                                 <td > <span th:text="${tra.description}"></span></td>
                                                 <td > <span th:text="${tra.amount}"></span><i class="fa fa-euro"></i></td>
+                                                <td ><span th:text="${tra.createdTimestamp}"></span></td>
                                                 <td >
                                                     <button type="button" class="btn btn-circle btn-danger btn-sm" th:attr="onclick=${'deleteTransaction('''+tra.transactionID+''')'}">
                                                         <i class="fa fa-close"></i></button>

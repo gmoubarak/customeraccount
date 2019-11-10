@@ -1,4 +1,7 @@
 package exercise.customeraccount.account.model;
+
+import java.sql.Timestamp;
+
 /*
 Account Entity
  */
@@ -12,6 +15,16 @@ public class Account {
     private String description;
     //Account balance.
     private double balance;
+    //Creation timestamp
+    private Timestamp createdTimestamp;
+
+    public Timestamp getCreatedTimestamp() {
+        return createdTimestamp;
+    }
+
+    public void setCreatedTimestamp(Timestamp createdTimestamp) {
+        this.createdTimestamp = createdTimestamp;
+    }
 
     public double getBalance() {
         return balance;
