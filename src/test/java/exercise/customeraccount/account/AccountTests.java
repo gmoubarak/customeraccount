@@ -40,13 +40,14 @@ public class AccountTests {
     @Test
     public void getAccount()throws Exception{
         int startingnum=accountService.getAccountsCount();
+        Customer c = customerService.getCustomers().get(0);
+        int custstartingnum=accountService.getAccountsCountForCustomer(c.getCustomerID());
         Account ac= createAccount();
         String accountID=ac.getAccountID();
         assertEquals(accountService.getAccountsCount(),startingnum+1);
-        assertEquals(accountService.getAccountsCountForCustomer(ac.getCustomerID()),1);
+        assertEquals(accountService.getAccountsCountForCustomer(ac.getCustomerID()),custstartingnum+1);
         List<Account> list=accountService.getAccountsForCustomer(ac.getCustomerID());
-        assertEquals(list.size(),1);
-        assertEquals(list.get(0).getAccountID(),accountID);
+        assertEquals(list.size(),custstartingnum+1);
     }
     /*
     after we create an account we delete it by id and then make sure after deletion that the return is null.
