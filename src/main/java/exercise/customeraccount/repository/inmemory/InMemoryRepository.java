@@ -89,6 +89,7 @@ abstract public class InMemoryRepository<T,ID> implements DefaultRepository<T,ID
     }
     @Override
     public boolean deleteAll(List<T>entities)throws RepositoryException{
+        if(entities==null)return false;
         Iterator<T>it=entities.iterator();
         while(it.hasNext()){
             T t=it.next();

@@ -14,9 +14,14 @@ In Memory implementation of TransactionRepsitory
 @Repository
 public class TransactionRepositoryInMem extends InMemoryRepository<Transaction,String> implements TransactionRepository {
     private Supplier<String> supplier;
-
+    private int counter=0;
     public TransactionRepositoryInMem(){
-        supplier=()->{return ""+System.currentTimeMillis();};
+        supplier=()->{counter++;
+            counter=counter%80;
+            StringBuffer sb=new StringBuffer();
+            sb.append(System.currentTimeMillis());
+            sb.append(counter+10);
+            return sb.toString();};
     }
     public Supplier<String> getSupplier(){
         return supplier;

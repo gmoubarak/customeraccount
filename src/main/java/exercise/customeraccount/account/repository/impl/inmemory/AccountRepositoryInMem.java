@@ -14,9 +14,14 @@ In Memory implementation of AccountRepsitory
 public class AccountRepositoryInMem extends InMemoryRepository<Account,String> implements AccountRepository {
 
     private Supplier<String> supplier;
-
+    private int counter=0;
     public AccountRepositoryInMem(){
-        supplier=()->{return "GR-"+System.currentTimeMillis();};
+        supplier=()->{counter++;
+        counter=counter%80;
+        StringBuffer sb=new StringBuffer("GR");
+        sb.append(System.currentTimeMillis());
+        sb.append(counter+10);
+        return sb.toString();};
     }
     public Supplier<String> getSupplier(){
         return supplier;
