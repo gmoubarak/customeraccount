@@ -39,9 +39,10 @@ public class AccountTests {
      */
     @Test
     public void getAccount()throws Exception{
+        int startingnum=accountService.getAccountsCount();
         Account ac= createAccount();
         String accountID=ac.getAccountID();
-        assertEquals(accountService.getAccountsCount(),1);
+        assertEquals(accountService.getAccountsCount(),startingnum+1);
         assertEquals(accountService.getAccountsCountForCustomer(ac.getCustomerID()),1);
         List<Account> list=accountService.getAccountsForCustomer(ac.getCustomerID());
         assertEquals(list.size(),1);
