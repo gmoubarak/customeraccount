@@ -25,7 +25,6 @@ public class AccountTests {
     Test creation of account but retrieving the first customer and creating a specific account for him/her
     then check if the account created matches the customer id and the account description. balance will be tested in another module.
      */
-    @Test
     public Account createAccount() throws Exception{
         Customer c = customerService.getCustomers().get(0);
         Account ac = accountService.createAccount(c.getCustomerID(), accountDesc, 0.0);
