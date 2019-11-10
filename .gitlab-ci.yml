@@ -3,6 +3,7 @@ image: java:8
 stages:
   - build
   - test
+  - qaqc
   - deploy
 
 before_script:
@@ -19,12 +20,19 @@ test:
   stage: test
   script: ./mvnw test
 
+qaqc:
+  stage:qaqc
+  script:
+    - curl --location "https://cli.run.pivotal.io/stable?release=linux64-binary&source=github" | tar zx
+    - ./cf login -u $CF_USERNAME -p $CF_PASSWORD -a api.run.pivotal.io
+    - ./cf push customeraccountqaqc
+  only:
+    - qaqc
 production:
   stage: deploy
   script:
     - curl --location "https://cli.run.pivotal.io/stable?release=linux64-binary&source=github" | tar zx
     - ./cf login -u $CF_USERNAME -p $CF_PASSWORD -a api.run.pivotal.io
-    - ./cf push
-    - ./cf logs customeraccount --recent
+    - ./cf push customeraccount
   only:
     - master
