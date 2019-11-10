@@ -1,6 +1,10 @@
 //binds input to decimal value.
 function filterNumberInput(ele){
     var text=ele.val();
+    var startwithminus=text.startsWith('-');
+    if(startwithminus){
+        text=text.substring(1);
+    }
     text=text.replace(/[^0-9.]/g, '');
     arr=text.split('.');
     if(arr.length>0){
@@ -10,5 +14,7 @@ function filterNumberInput(ele){
         text=arr[0]+'.'+arr[1];
       }
     }
+    if(startwithminus)
+        text='-'+text;
     ele.val(text);
 }

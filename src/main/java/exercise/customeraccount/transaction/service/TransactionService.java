@@ -37,4 +37,10 @@ public interface TransactionService {
     *
      */
     boolean deleteTransaction(String transactionID) throws TransactionServiceException;
+    /*
+    * deletes all the transactions related to the account.
+    * @param accountID is the id of the account to be deleted with all its transactions.
+    * @return true if successful. false otherwise.
+     */
+    boolean deleteTransactionsOfAccount(String accountID)throws TransactionServiceException;
 }

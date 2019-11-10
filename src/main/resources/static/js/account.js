@@ -8,7 +8,17 @@ $(document).ready(function() {
         //on click update create the account
         var accountID=$('#accountID').text();
         var description=$('#descriptionInput').val();
-        var amount=parseFloat($('#amountInput').val());
+        if(description===""){
+            alert('Please fill in the transaction description');
+            return;
+        }
+        var astr=$('#amountInput').val();
+        var amount=0;
+        if(!(astr!==null && astr.trim()!==""&& astr.trim()!=="." && astr.trim()!=="-")){
+            alert('Transaction amount cannot be zero');
+            return;
+        }
+        amount=parseFloat(astr);
         $.post( "/api/v1/transaction", { "accountID":accountID, "description":description,"amount":amount })
           .done(function( data ) {//on succcess refresh ajax the accounts table
             reloadTransactions();
@@ -33,7 +43,7 @@ function updateBalance(){
         $('#accountBalance').text(data);
     })
 }
-function deleteAccount(transactionID){
+function deleteTransaction(transactionID){
     $.ajax({
         type: 'DELETE',
         url: '/api/v1/transaction',

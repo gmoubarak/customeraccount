@@ -7,7 +7,15 @@ $(document).ready(function() {
         //on click update create the account
         var customerID=$('#customerID').text();
         var description=$('#descriptionInput').val();
-        var initialValue=parseFloat($('#initialValueInput').val())
+        if(description===""){
+            alert('Please fill in the account description');
+            return;
+        }
+        var ivstr=$('#initialValueInput').val();
+        var initialValue=0;
+        if(ivstr!==null && ivstr.trim()!=="" && ivstr.trim()!=="." && ivstr.trim()!=="-"){
+            initialValue=parseFloat(ivstr);
+        }
         $.post( "/api/v1/account", { "customerID":customerID, "description":description,"initialValue":initialValue })
           .done(function( data ) {//on succcess refresh ajax the accounts table
             reloadAccounts();

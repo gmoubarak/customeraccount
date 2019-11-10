@@ -84,13 +84,21 @@ public class AccountServiceImpl implements AccountService {
         }
         return ac;
     }
-
+    /*
+    * Once an account is deleted all the related transactions are deleted with it
+     */
     @Override
     public boolean deleteAccount(String accountID)  throws AccountServiceException{
         try{
-            return accountRepository.deleteByID(accountID);
+            boolean result= accountRepository.deleteByID(accountID);
+            if(result){
+                transactionService.deleteTransactionsOfAccount(accountID);
+            }
+            return result;
         }catch(RepositoryException e){
             throw new AccountServiceException(e.getMessage());
+        }catch(TransactionServiceException te){
+            throw new AccountServiceException(te.getMessage());
         }
     }
     @Override

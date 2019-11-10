@@ -43,6 +43,12 @@ public interface DefaultRepository <T,ID> {
      */
     boolean deleteByID(ID id) throws RepositoryException;
     /*
+    * deletes all the entities in the list.
+    * @param entities is the list of all the entities to be deleted
+    * @return true if successful. false otherwise.
+     */
+    boolean deleteAll(List<T>entities)throws RepositoryException;
+    /*
     *get the list of entities by criteria.
     * @param criteria a settings object by which to filter the list of entites
      */

@@ -89,7 +89,7 @@ public class TransactionServiceImpl implements TransactionService {
             boolean result= transactionRepository.delete(t);
             if(!result)return false;
             Account ac=accountService.getAccount(t.getAccountID());
-            accountService.setAccountBalance(t.getAccountID(),ac.getBalance()+t.getAmount());
+            accountService.setAccountBalance(t.getAccountID(),ac.getBalance()-t.getAmount());
         }catch(RepositoryException e){
             throw new TransactionServiceException(e.getMessage());
         }catch(AccountServiceException ae){
@@ -97,4 +97,15 @@ public class TransactionServiceImpl implements TransactionService {
         }
         return true;
     }
+    @Override
+    public boolean deleteTransactionsOfAccount(String accountID)throws TransactionServiceException{
+        List<Transaction>list=getTransactionsForAccount(accountID);
+        try{
+            return transactionRepository.deleteAll(list);
+        }catch(RepositoryException e) {
+            throw new TransactionServiceException(e.getMessage());
+        }
+    }
+
+
 }

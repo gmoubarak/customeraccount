@@ -62,10 +62,19 @@ public class AccountRestV1Controller {
                     HttpStatus.NOT_FOUND, "Account couldn't be deleted ",e);
         }
     }
-//
-//    //retuns the sum of transactions amount of an account
-//    @RequestMapping(value="/{accountID}/@balance",method = RequestMethod.GET)
-//    public double getAmountForAccount(@PathVariable String accountID){
-//        return transactionService.getBalanceForAccount(accountID);
-//    }
+
+    //retuns the sum of transactions amount of an account
+    @RequestMapping(value="/{accountID}/@balance",method = RequestMethod.GET)
+    public double getAmountForAccount(@PathVariable String accountID){
+        try{
+            Account ac=accountService.getAccount(accountID);
+            if(ac!=null){
+                return ac.getBalance();
+            }
+            return 0.0;
+        }catch (AccountServiceException e){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Account not found ",e);
+        }
+    }
 }
