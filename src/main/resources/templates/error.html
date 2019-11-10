@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragment/common.html :: head">
+</head>
+<body>
+<div class="page">
+    <!-- Main Navbar-->
+    <div class="page-content d-flex align-items-stretch">
+        <div class="content-inner">
+            <div th:replace="fragment/common.html :: header( title='Response Error',parentLink=null,parentTitle=null,classname='text-black')"></div>
+            <section class="dashboard-counts no-padding-bottom">
+                <div class="container-fluid">
+                    <div class="row bg-white has-shadow">
+                        <!-- Item -->
+                        <div class="col-xl-4 col-sm-6">
+                            <div class="item d-flex align-items-center">
+                                <div class="icon bg-red"><i class="fa fa-exclamation-circle"></i></div>
+                                <div class="title"><span th:text="${errorMessage}"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div th:replace="fragment/common.html :: footer">/>
+        </div>
+    </div>
+</div>
+</body>
+</html>

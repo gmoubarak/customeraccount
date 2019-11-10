@@ -40,6 +40,10 @@ public class AccountController {
                 model.addAttribute("backlink", "/customer/"+c.getCustomerID());
                 model.addAttribute("transactions",transactionService.getTransactionsForAccount(ac.getAccountID()));
             }
+            else{
+                throw new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Account Not Found");
+            }
         }catch (AccountServiceException e){
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Account Not Found",e);
